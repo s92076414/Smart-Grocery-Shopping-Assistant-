@@ -1,0 +1,182 @@
+{
+  "grocery_list": [
+    {
+      "id": 1,
+      "name": "honey or stevia",
+      "category": "Dairy",
+      "quantity": 1,
+      "added_date": "2025-12-09",
+      "purchased": false
+    },
+    {
+      "id": 2,
+      "name": "honey or stevia",
+      "category": "Dairy",
+      "quantity": 1.0,
+      "added_date": "2025-12-09",
+      "purchased": false
+    }
+  ],
+  "purchase_history": [
+    {
+      "date": "2025-12-09",
+      "items": [
+        {
+          "name": "honey or stevia",
+          "category": "Dairy",
+          "quantity": 1,
+          "added_date": "2025-12-09",
+          "expired_date": ""
+        }
+      ]
+    },
+    {
+      "date": "2025-12-09",
+      "items": [
+        {
+          "name": "honey or stevia",
+          "category": "Bakery",
+          "quantity": 1,
+          "added_date": "2025-12-09",
+          "expired_date": ""
+        }
+      ]
+    },
+    {
+      "date": "2025-12-09",
+      "items": [
+        {
+          "name": "Sugar",
+          "category": "Dairy",
+          "quantity": 1,
+          "added_date": "2025-12-09",
+          "expired_date": ""
+        }
+      ]
+    },
+    {
+      "date": "2025-12-09",
+      "items": [
+        {
+          "name": "red rice",
+          "category": "Dairy",
+          "quantity": 1,
+          "added_date": "2025-12-09",
+          "expired_date": ""
+        }
+      ]
+    },
+    {
+      "date": "2025-12-09",
+      "items": [
+        {
+          "name": "Flour",
+          "category": "Dairy",
+          "quantity": 1,
+          "added_date": "2025-12-09",
+          "expired_date": ""
+        }
+      ]
+    },
+    {
+      "date": "2025-12-09",
+      "items": [
+        {
+          "name": "honey or stevia",
+          "category": "Dairy",
+          "quantity": 1,
+          "added_date": "2025-12-09",
+          "expired_date": ""
+        }
+      ]
+    },
+    {
+      "date": "2025-12-09",
+      "items": [
+        {
+          "name": "honey or stevia",
+          "category": "Dairy",
+          "quantity": 1.0,
+          "added_date": "2025-12-09",
+          "expired_date": ""
+        }
+      ]
+    },
+    {
+      "date": "2025-12-09",
+      "items": [
+        {
+          "name": "Bread",
+          "category": "Dairy",
+          "quantity": 1.0,
+          "added_date": "2025-11-29",
+          "expired_date": "2025-12-14"
+        }
+      ]
+    },
+    {
+      "date": "2025-11-30",
+      "items": [
+        {
+          "name": "Sugar",
+          "category": "Dairy",
+          "quantity": 1.0,
+          "added_date": "2025-11-30",
+          "expired_date": ""
+        }
+      ]
+    },
+    {
+      "date": "2025-11-28",
+      "items": [
+        {
+          "name": "Milk",
+          "category": "Dairy",
+          "quantity": 1.0,
+          "added_date": "2025-11-28",
+          "expired_date": "2025-12-16"
+        }
+      ]
+    },
+    {
+      "date": "2025-11-29",
+      "items": [
+        {
+          "name": "Milk",
+          "category": "Dairy",
+          "quantity": 1.0,
+          "added_date": "2025-11-29",
+          "expired_date": "2025-12-16"
+        }
+      ]
+    },
+    {
+      "date": "2025-12-09",
+      "items": [
+        {
+          "name": "honey or stevia",
+          "category": "Dairy",
+          "quantity": 1.0,
+          "added_date": "2025-11-29",
+          "expired_date": ""
+        }
+      ]
+    },
+    {
+      "date": "2025-11-30",
+      "items": [
+        {
+          "name": "Milk",
+          "category": "Dairy",
+          "quantity": 1.0,
+          "added_date": "2025-11-30",
+          "expired_date": "2025-12-16"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "reminder_days": 2,
+    "auto_suggest": true
+  }
+}
