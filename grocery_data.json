@@ -2,67 +2,107 @@
   "grocery_list": [
     {
       "id": 1,
-      "name": "honey or stevia",
+      "name": "White rice",
       "category": "Dairy",
       "quantity": 1,
-      "added_date": "2025-12-09",
-      "purchased": false
-    },
-    {
-      "id": 2,
-      "name": "honey or stevia",
-      "category": "Dairy",
-      "quantity": 1.0,
-      "added_date": "2025-12-09",
+      "added_date": "2025-12-25",
       "purchased": false
     }
   ],
   "purchase_history": [
     {
-      "date": "2025-12-09",
+      "date": "2025-11-25",
       "items": [
         {
-          "name": "honey or stevia",
+          "name": "Fish",
+          "category": "Dairy",
+          "quantity": 2,
+          "added_date": "2025-11-25",
+          "expired_date": "2025-11-27"
+        }
+      ]
+    },
+    {
+      "date": "2025-12-01",
+      "items": [
+        {
+          "name": "White Sugar",
           "category": "Dairy",
           "quantity": 1,
-          "added_date": "2025-12-09",
-          "expired_date": ""
+          "added_date": "2025-12-01",
+          "expired_date": "2026-12-01"
         }
       ]
     },
     {
-      "date": "2025-12-09",
+      "date": "2025-12-20",
       "items": [
         {
-          "name": "honey or stevia",
-          "category": "Bakery",
-          "quantity": 1,
-          "added_date": "2025-12-09",
-          "expired_date": ""
-        }
-      ]
-    },
-    {
-      "date": "2025-12-09",
-      "items": [
-        {
-          "name": "Sugar",
+          "name": "Milk",
           "category": "Dairy",
           "quantity": 1,
-          "added_date": "2025-12-09",
-          "expired_date": ""
+          "added_date": "2025-12-20",
+          "expired_date": "2025-12-27"
         }
       ]
     },
     {
-      "date": "2025-12-09",
+      "date": "2025-11-15",
+      "items": [
+        {
+          "name": "Bread",
+          "category": "Dairy",
+          "quantity": 1,
+          "added_date": "2025-11-15",
+          "expired_date": "2025-11-20"
+        }
+      ]
+    },
+    {
+      "date": "2025-12-10",
+      "items": [
+        {
+          "name": "brown rice",
+          "category": "Dairy",
+          "quantity": 2,
+          "added_date": "2025-12-10",
+          "expired_date": "2026-06-10"
+        }
+      ]
+    },
+    {
+      "date": "2025-12-02",
+      "items": [
+        {
+          "name": "tomatoes",
+          "category": "Vegetables",
+          "quantity": 4,
+          "added_date": "2025-12-02",
+          "expired_date": "2025-12-09"
+        }
+      ]
+    },
+    {
+      "date": "2025-12-01",
       "items": [
         {
           "name": "red rice",
           "category": "Dairy",
           "quantity": 1,
-          "added_date": "2025-12-09",
-          "expired_date": ""
+          "added_date": "2025-12-01",
+          "expired_date": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "date": "2025-11-25",
+      "items": [
+        {
+          "name": "meat",
+          "category": "Dairy",
+          "quantity": 1,
+          "added_date": "2025-11-25",
+          "expired_date": "2025-11-28"
         }
       ]
     },
@@ -74,43 +114,43 @@
           "category": "Dairy",
           "quantity": 1,
           "added_date": "2025-12-09",
-          "expired_date": ""
+          "expired_date": "2026-06-19"
         }
       ]
     },
     {
-      "date": "2025-12-09",
+      "date": "2025-11-27",
       "items": [
         {
-          "name": "honey or stevia",
+          "name": "Eggs",
           "category": "Dairy",
-          "quantity": 1,
-          "added_date": "2025-12-09",
-          "expired_date": ""
+          "quantity": 6,
+          "added_date": "2025-11-27",
+          "expired_date": "2025-12-18"
         }
       ]
     },
     {
-      "date": "2025-12-09",
-      "items": [
-        {
-          "name": "honey or stevia",
-          "category": "Dairy",
-          "quantity": 1.0,
-          "added_date": "2025-12-09",
-          "expired_date": ""
-        }
-      ]
-    },
-    {
-      "date": "2025-12-09",
+      "date": "2025-11-25",
       "items": [
         {
           "name": "Bread",
+          "category": "Bakery",
+          "quantity": 1,
+          "added_date": "2025-11-25",
+          "expired_date": "2025-11-30"
+        }
+      ]
+    },
+    {
+      "date": "2025-12-18",
+      "items": [
+        {
+          "name": "Sugar",
           "category": "Dairy",
-          "quantity": 1.0,
-          "added_date": "2025-11-29",
-          "expired_date": "2025-12-14"
+          "quantity": 1,
+          "added_date": "2025-12-18",
+          "expired_date": "2026-12-18"
         }
       ]
     },
@@ -120,9 +160,9 @@
         {
           "name": "Sugar",
           "category": "Dairy",
-          "quantity": 1.0,
+          "quantity": 3,
           "added_date": "2025-11-30",
-          "expired_date": ""
+          "expired_date": "2026-11-30"
         }
       ]
     },
@@ -132,7 +172,7 @@
         {
           "name": "Milk",
           "category": "Dairy",
-          "quantity": 1.0,
+          "quantity": 1,
           "added_date": "2025-11-28",
           "expired_date": "2025-12-16"
         }
@@ -144,21 +184,9 @@
         {
           "name": "Milk",
           "category": "Dairy",
-          "quantity": 1.0,
+          "quantity": 1,
           "added_date": "2025-11-29",
           "expired_date": "2025-12-16"
-        }
-      ]
-    },
-    {
-      "date": "2025-12-09",
-      "items": [
-        {
-          "name": "honey or stevia",
-          "category": "Dairy",
-          "quantity": 1.0,
-          "added_date": "2025-11-29",
-          "expired_date": ""
         }
       ]
     },
@@ -168,7 +196,7 @@
         {
           "name": "Milk",
           "category": "Dairy",
-          "quantity": 1.0,
+          "quantity": 1,
           "added_date": "2025-11-30",
           "expired_date": "2025-12-16"
         }
@@ -176,7 +204,7 @@
     }
   ],
   "settings": {
-    "reminder_days": 2,
-    "auto_suggest": true
+    "auto_suggest": true,
+    "reminder_days": 2
   }
 }
