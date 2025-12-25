@@ -3,7 +3,6 @@ import pandas as pd
 from datetime import datetime, timedelta
 import json
 import os
-from collections import defaultdict
 
 # Page Configuration
 st.set_page_config(
@@ -20,8 +19,7 @@ st.markdown("""
 
         .block-container {
             padding-top: 0.5rem !important;   
-        }
-        /* Heading style */
+        }  
         .app-title {
             font-size: 28px;      
             font-weight: bold;
@@ -29,8 +27,6 @@ st.markdown("""
             margin-top: 0;        
             margin-bottom: 5px;   
         }
-
-        /* Subheading style */
         .app-subtitle {
             font-size: 16px;
             color: #4A5568;
@@ -46,9 +42,7 @@ if 'grocery_list' not in st.session_state:
 if 'purchase_history' not in st.session_state:
     st.session_state.purchase_history = []
 if 'settings' not in st.session_state:
-    st.session_state.settings = {'reminder_days': 3, 'auto_suggest': True}
-if 'refresh' not in st.session_state:
-    st.session_state.refresh = False
+    st.session_state.settings = {'auto_suggest': True}
 
 DATA_FILE = 'grocery_data.json'
 
@@ -82,21 +76,21 @@ load_data()
 # Healthier Alternatives
 HEALTHIER_ALTERNATIVES = {
     'white bread': {'alt': 'whole wheat bread', 'reason': 'Higher fiber, more nutrients, better for digestion'},
-    'white rice': {'alt': 'brown rice or quinoa', 'reason': 'More fiber, vitamins, minerals, and protein'},
+    'white rice': {'alt': 'brown rice', 'reason': 'More fiber, vitamins, minerals, and protein'},
     'soda': {'alt': 'sparkling water with lemon', 'reason': 'No added sugar, hydrating, natural flavor'},
-    'potato chips': {'alt': 'baked chips or veggie chips', 'reason': 'Lower fat content, more nutrients'},
-    'ice cream': {'alt': 'frozen yogurt or fruit sorbet', 'reason': 'Less fat, fewer calories, probiotics'},
-    'butter': {'alt': 'olive oil or avocado spread', 'reason': 'Healthier monounsaturated fats, antioxidants'},
-    'whole milk': {'alt': 'skim milk or almond milk', 'reason': 'Lower fat, fewer calories, plant-based option'},
-    'beef': {'alt': 'lean chicken or fish', 'reason': 'Lower saturated fat, more protein, omega-3s'},
-    'pasta': {'alt': 'whole wheat pasta or zucchini noodles', 'reason': 'More fiber, complex carbohydrates, lower calories'},
-    'mayonnaise': {'alt': 'Greek yogurt or hummus', 'reason': 'More protein, less fat, probiotics'},
-    'sugar': {'alt': 'honey or stevia', 'reason': 'Natural sweeteners, lower glycemic index'},
-    'cookies': {'alt': 'oatmeal cookies or fruit', 'reason': 'More fiber, less processed sugar, natural sweetness'},
-    'candy': {'alt': 'dark chocolate or dried fruit', 'reason': 'Antioxidants, natural sugars, fiber'},
-    'cream': {'alt': 'low-fat milk or coconut milk', 'reason': 'Lower fat content, plant-based option'},
-    'bacon': {'alt': 'turkey bacon or lean ham', 'reason': 'Lower fat, less sodium, more protein'},
-    'juice': {'alt': 'fresh fruit or infused water', 'reason': 'More fiber, less sugar, natural hydration'},
+    'potato chips': {'alt': 'baked chips', 'reason': 'Lower fat content, more nutrients'},
+    'ice cream': {'alt': 'frozen yogurt', 'reason': 'Less fat, fewer calories, probiotics'},
+    'butter': {'alt': 'olive oil', 'reason': 'Healthier monounsaturated fats, antioxidants'},
+    'whole milk': {'alt': 'skim milk', 'reason': 'Lower fat, fewer calories, plant-based option'},
+    'beef': {'alt': 'lean chicken', 'reason': 'Lower saturated fat, more protein, omega-3s'},
+    'pasta': {'alt': 'whole wheat pasta', 'reason': 'More fiber, complex carbohydrates, lower calories'},
+    'mayonnaise': {'alt': 'Greek yogurt', 'reason': 'More protein, less fat, probiotics'},
+    'sugar': {'alt': 'honey', 'reason': 'Natural sweeteners, lower glycemic index'},
+    'cookies': {'alt': 'oatmeal cookies', 'reason': 'More fiber, less processed sugar, natural sweetness'},
+    'candy': {'alt': 'dark chocolate', 'reason': 'Antioxidants, natural sugars, fiber'},
+    'cream': {'alt': 'low-fat milk', 'reason': 'Lower fat content, plant-based option'},
+    'bacon': {'alt': 'turkey bacon', 'reason': 'Lower fat, less sodium, more protein'},
+    'juice': {'alt': 'fresh fruit', 'reason': 'More fiber, less sugar, natural hydration'},
 }
 
 def get_healthier_alt(item_name):
@@ -120,42 +114,7 @@ def suggest_healthier_alternatives():
     return suggestions
 
 # Missing Items Prediction
-def get_frequent_items(days=14):
-    today = datetime.now().date()
-    cutoff = today - timedelta(days=days)
-    
-    item_freq = defaultdict(int)
-    item_last_date = {}
-    item_categories = {}
-    
-    for purchase in st.session_state.purchase_history:
-        try:
-            purchase_date = datetime.strptime(purchase['date'], '%Y-%m-%d').date()
-            if purchase_date >= cutoff:
-                for item in purchase['items']:
-                    item_name = item['name'].lower().strip()
-                    item_freq[item_name] += item.get('quantity', 1)
-                    if item_name not in item_last_date or purchase_date > item_last_date[item_name]:
-                        item_last_date[item_name] = purchase_date
-                        item_categories[item_name] = item.get('category', 'Other')
-        except:
-            continue
-    
-    return [
-        {
-            'name': name,
-            'frequency': count,
-            'days_since': (today - item_last_date[name]).days,
-            'category': item_categories.get(name, 'Other')
-        }
-        for name, count in item_freq.items()
-    ]
-
 def predict_missing_items():
-    """
-    Suggest missing items based purely on purchase history.
-    Complements and confidence levels are removed.
-    """
     if not st.session_state.settings.get('auto_suggest', True):
         return []
 
@@ -163,7 +122,7 @@ def predict_missing_items():
     current_items = [item['name'].lower().strip() for item in st.session_state.grocery_list]
 
     today = datetime.now().date()
-    cutoff_days = 30
+    cutoff_days = 20
     cutoff = today - timedelta(days=cutoff_days)
 
     # Track last purchase date and category
@@ -198,18 +157,17 @@ def predict_missing_items():
 def get_expiring_items():
     reminders = []
     today = datetime.now().date()
-    reminder_days = st.session_state.settings.get('reminder_days', 3)
 
     # Shelf life in days
     shelf_life = {
-        'milk': 7, 'bread': 5, 'eggs': 21, 'yogurt': 14, 'cheese': 14,
-        'meat': 3, 'chicken': 3, 'fish': 2, 'pork': 3, 'beef': 3,
-        'vegetables': 7, 'fruits': 7, 'bananas': 5, 'lettuce': 5,
-        'tomatoes': 7, 'onions': 30, 'potatoes': 30, 'carrots': 14,
-        'berries': 5, 'apples': 14, 'oranges': 14, 'spinach': 5,
+        'milk': 7, 'bread': 5, 'whole wheat bread': 7, 'eggs': 21, 'yogurt': 14, 'cheese': 30,
+        'rice': 180, 'flour': 180, 'pasta': 365, 'sugar': 365, 'honey': 365, 'cookies': 120,
+        'chips': 180, 'chocolate': 180, 'mayonnaise': 60, 'meat': 3, 'chicken': 3, 'fish': 2,
+        'beef': 3, 'bananas': 5, 'butter': 180, 'bacon': 7, 'juice': 7, 'olive oil': 365,
+        'tomatoes': 7, 'onions': 30, 'potatoes': 30, 'apples': 14, 'oranges': 14, 'spinach': 5,
     }
 
-    default_life = 7  # Default shelf life for unknown items
+    default_life = 30  # Default shelf life for unknown items
 
     for item in st.session_state.grocery_list:
         try:
@@ -220,7 +178,7 @@ def get_expiring_items():
         item_name_lower = item['name'].lower().strip()
         item_life = None
 
-        # Try to find shelf life key
+        # Try to find shelf life key 
         for key, life in shelf_life.items():
             if key in item_name_lower or item_name_lower in key:
                 item_life = life
@@ -232,14 +190,28 @@ def get_expiring_items():
         days_since_added = (today - purchase_date).days
         days_until_expiry = item_life - days_since_added
 
+        # status logic
         if days_until_expiry < 0:
-            reminders.append({'item': item['name'], 'message': f"⚠️ {item['name']} expired {abs(days_until_expiry)} day(s) ago!", 'status': 'expired'})
+            status = 'expired'
+            message = f"⚠️ {item['name']} expired {abs(days_until_expiry)} day(s) ago!"
         elif days_until_expiry <= 4:
-            reminders.append({'item': item['name'], 'message': f"🔴 URGENT: {item['name']} expires in {days_until_expiry} day(s)!", 'status': 'urgent'})
+            status = 'urgent'
+            message = f"🔴 {item['name']} expires in {days_until_expiry} day(s)!"
+        elif days_until_expiry <= 6:
+            status = 'warning'
+            message = f"🟡 {item['name']} expires in {days_until_expiry} day(s)"
         else:
-            reminders.append({'item': item['name'], 'message': f"🟡 {item['name']} expires in {days_until_expiry} day(s)", 'status': 'warning'})
+            status = 'fresh'
+            message = None  # No alert for fresh items
 
-    # Sort by priority: expired → urgent → warning → fresh
+        # Only show alerts up to 8 days
+        if status != 'fresh' and days_until_expiry <= 8:
+            reminders.append({
+                'item': item['name'],
+                'status': status,
+                'message': message
+            })
+
     status_order = {'expired': 0, 'urgent': 1, 'warning': 2, 'fresh': 3}
     reminders_sorted = sorted(reminders, key=lambda x: status_order.get(x['status'], 4))
 
@@ -291,44 +263,11 @@ st.markdown("""
     padding: 6px 12px;
     border-radius: 8px;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
 # Main App
 def main():
-
-    st.markdown("""
-    <style>
-/* Card styling */
-.card {
-    padding: 18px;
-    border-radius: 14px;
-    background-color: #ffffff;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    margin-bottom: 18px;
-}
-.grocery-row {
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #fbfcfd;
-    border: 1px solid #eef1f5;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-}
-.grocery-name {
-    font-weight: 600;
-    font-size: 15px;
-}
-.grocery-meta {
-    color: #666;
-    font-size: 13px;
-}
-
-</style>
-
-    """, unsafe_allow_html=True)
   
     # App Title
     st.markdown('<div class="app-title">Smart Grocery Shopping Assistant</div>', unsafe_allow_html=True)
@@ -359,7 +298,7 @@ def main():
                     'added_date': datetime.now().strftime('%Y-%m-%d'),
                     'purchased': False
                 }
-                st.session_state.grocery_list.insert(0, new_item)  # adds new item at top
+                st.session_state.grocery_list.insert(0, new_item)  
                 save_data()
                 st.success(f" Added {item_name}!")
             else:
@@ -414,11 +353,11 @@ def main():
                             }
                             # calculate expiry dates
                             shelf_life = {
-                                'milk': 7, 'bread': 5, 'eggs': 21, 'yogurt': 14, 'cheese': 14,
-                                'meat': 3, 'chicken': 3, 'fish': 2, 'pork': 3, 'beef': 3,
-                                'vegetables': 7, 'fruits': 7, 'bananas': 5, 'lettuce': 5,
-                                'tomatoes': 7, 'onions': 30, 'potatoes': 30, 'carrots': 14,
-                                'berries': 5, 'apples': 14, 'oranges': 14, 'spinach': 5,
+                                'milk': 7, 'bread': 5, 'whole wheat bread': 7, 'eggs': 21, 'yogurt': 14, 'cheese': 30,
+                                'rice': 180, 'flour': 180, 'pasta': 365, 'sugar': 365, 'honey': 365, 'cookies': 120,
+                                'chips': 180, 'chocolate': 180, 'mayonnaise': 60, 'meat': 3, 'chicken': 3, 'fish': 2,
+                                'beef': 3, 'bananas': 5, 'butter': 180, 'bacon': 7, 'juice': 7, 'olive oil': 365,
+                                'tomatoes': 7, 'onions': 30, 'potatoes': 30, 'apples': 14, 'oranges': 14, 'spinach': 5,
                             }
                             for item_p in purchase_record['items']:
                                 item_name_lower = item_p['name'].lower()
@@ -431,7 +370,7 @@ def main():
                                     item_p['expired_date'] = (datetime.now() + timedelta(days=item_life)).strftime('%Y-%m-%d')
                                 else:
                                     item_p['expired_date'] = ""
-                            st.session_state.purchase_history.insert(0, purchase_record)  # adds purchased record at top
+                            st.session_state.purchase_history.insert(0, purchase_record) 
                             to_purchase_names = set([i['name'] for i in to_purchase])
                             st.session_state.grocery_list = [i for i in st.session_state.grocery_list if i['name'] not in to_purchase_names]
                             save_data()
@@ -525,7 +464,6 @@ def main():
 
     
     # Purchase History
-
     st.markdown('<div class="card">', unsafe_allow_html=True)
     st.markdown('<h3 style="color:#718096;"> Purchase History</h3>', unsafe_allow_html=True)
     ph_df = get_purchase_history_df()
